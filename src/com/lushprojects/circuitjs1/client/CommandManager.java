@@ -66,6 +66,8 @@ public class CommandManager {
     	}
     	if (item=="exportassvg")
 		app.imageExporter.doExportAsSVG();
+        if (item=="exporttolceda")
+                doExportToLCEDA();
     	if (item=="createsubcircuit")
 		doCreateSubcircuit();
     	if (item=="dcanalysis")
@@ -665,5 +667,17 @@ public class CommandManager {
         $wnd.toggleDevTools();
     }-*/;
     
+
+
+    // Export circuit to LCEDA EDA via JavaScript bridge
+    private native void doExportToLCEDA() /*-{
+        if ($wnd.doExportToLCEDA) {
+            $wnd.doExportToLCEDA();
+        } else if ($wnd.CircuitJS1 && $wnd.CircuitJS1.exportCircuit) {
+            // Fallback: trigger the injected export function
+            var evt = new CustomEvent("lceda-export");
+            $wnd.dispatchEvent(evt);
+        }
+    }-*/;
 
 }

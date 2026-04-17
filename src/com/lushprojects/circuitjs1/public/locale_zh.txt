@@ -1502,3 +1502,4 @@
 "transformer (sat)"="变压器 (饱和)"
 "viewport"="视口"
 "Ćuk Converter"="Ćuk转换器"
+"Export to LCEDA"="导出到嘉立创EDA"

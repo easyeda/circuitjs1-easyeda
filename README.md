@@ -1,4 +1,5 @@
-# CircuitJS1
+# CircuitJS1-EasyEDA
+This project is a fork of [pfalstad/circuitjs1](https://github.com/pfalstad/circuitjs1), modified to be compatible with EasyEDA.
 
 <p align="center">
   <img src="war/icon128.png" alt="CircuitJS1 logo" width="128" height="128">
@@ -123,7 +124,7 @@ Just for reference the files should look like this
 
 *(replace the podman command with docker if you prefere docker)*
 
-- To build Docker image using podman: 
+- To build Docker image using podman:
 
 ```
 podman build -f circuitjs1.Containerfile -t circuitjs1:latest
@@ -142,7 +143,7 @@ CircuitJS1 should be accessable at: http://localhost:8000/circuitjs.html
 
 (replace the podman command with docker if you prefere docker)
 
-- To build the development Docker image using podman: 
+- To build the development Docker image using podman:
 
 ```
 podman build -f dev-start.Containerfile -t circuitjs1-dev:latest

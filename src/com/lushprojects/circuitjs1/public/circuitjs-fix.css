@@ -1,0 +1,68 @@
+/* Fix popup menu width - override GWT DecoratorPanel constraints */
+.gwt-MenuBarPopup,
+.gwt-PopupPanel {
+    width: auto !important;
+    overflow: visible !important;
+}
+.gwt-MenuBarPopup > div,
+.gwt-PopupPanel > div {
+    width: auto !important;
+    overflow: visible !important;
+}
+.gwt-MenuBarPopup table,
+.gwt-PopupPanel table {
+    width: auto !important;
+    table-layout: auto !important;
+}
+.gwt-MenuBarPopup td,
+.gwt-PopupPanel td {
+    white-space: nowrap !important;
+    background-color: #fff !important;
+    overflow: visible !important;
+}
+.gwt-MenuBarPopup .menuPopupTopLeftInner,
+.gwt-MenuBarPopup .menuPopupTopRightInner,
+.gwt-MenuBarPopup .menuPopupBottomLeftInner,
+.gwt-MenuBarPopup .menuPopupBottomRightInner,
+.gwt-MenuBarPopup .menuPopupTopLeft,
+.gwt-MenuBarPopup .menuPopupTopRight,
+.gwt-MenuBarPopup .menuPopupBottomLeft,
+.gwt-MenuBarPopup .menuPopupBottomRight {
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+}
+.gwt-MenuBarPopup .menuPopupTopCenter,
+.gwt-MenuBarPopup .menuPopupBottomCenter {
+    height: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+}
+.gwt-MenuBarPopup .menuPopupMiddleLeft,
+.gwt-MenuBarPopup .menuPopupMiddleRight {
+    width: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+}
+.gwt-MenuBarPopup .menuPopupMiddleCenter {
+    background: #fff !important;
+}
+.gwt-MenuBar-vertical {
+    background: #fff;
+    min-width: 200px;
+}
+.gwt-MenuBar-vertical .gwt-MenuItem {
+    padding: 4px 20px 4px 8px;
+    white-space: nowrap;
+}
+.gwt-DialogBox { background: #fff; }
+.gwt-DialogBox .dialogContent,
+.gwt-DialogBox .dialogMiddleCenter,
+.gwt-DialogBox .dialogBottomCenter { background: #fff; }
+.gwt-DialogBox .Caption {
+    background: #e8e8e8;
+    padding: 6px 8px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+}

@@ -9,4 +9,5 @@
     <generate-with class="com.lushprojects.circuitjs1.rebind.ElementFactoryGenerator">
         <when-type-assignable class="com.lushprojects.circuitjs1.client.ElementFactory"/>
     </generate-with>
+    <stylesheet src="circuitjs-fix.css"/>
 </module>

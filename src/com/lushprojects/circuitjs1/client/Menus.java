@@ -130,7 +130,8 @@ public class Menus {
 	fileMenuBar.addItem(exportAsTextItem);
 	fileMenuBar.addItem(iconMenuItem("image", "Export As Image...", new MyCommand("file","exportasimage")));
 	fileMenuBar.addItem(iconMenuItem("image", "Copy Circuit Image to Clipboard", new MyCommand("file","copypng")));
-	fileMenuBar.addItem(iconMenuItem("image", "Export As SVG...", new MyCommand("file","exportassvg")));    	
+	fileMenuBar.addItem(iconMenuItem("image", "Export As SVG...", new MyCommand("file","exportassvg")));
+    	
 	fileMenuBar.addItem(iconMenuItem("microchip", "Create Subcircuit...", new MyCommand("file","createsubcircuit")));
 	fileMenuBar.addItem(iconMenuItem("magic", "Find DC Operating Point", new MyCommand("file", "dcanalysis")));
 	recoverItem = iconMenuItem("back-in-time", "Recover Auto-Save", new MyCommand("file","recover"));
@@ -243,6 +244,7 @@ public class Menus {
 	m.addItem(new MenuItem(Locale.LS("Convert Wires to Routed Wires"), new MyCommand("tools", "convertWires")));
 	m.addItem(new MenuItem(Locale.LS("Subcircuit Manager"), new MyCommand("tools", "subcircuits")));
 	menuBar.addItem(Locale.LS("Tools"), m);
+        injectPopupFix();
 
 	mainMenuBar = new MenuBar(true);
 	mainMenuBar.setAutoOpen(true);
@@ -476,11 +478,10 @@ public class Menus {
 	    mb.addItem(getClassCheckItem(Locale.LS(items[i]), items[i+1]));
     }
 
-    MenuItem menuItemWithShortcut(String icon, String text, String shortcut, MyCommand cmd) {
-        final String edithtml="<div style=\"white-space:nowrap\"><div style=\"display:inline-block;width:100%;\"><i class=\"cirjsicon-";
+        MenuItem menuItemWithShortcut(String icon, String text, String shortcut, MyCommand cmd) {
         String nbsp = "&nbsp;";
         if (icon=="") nbsp="";
-        String sn=edithtml + icon + "\"></i>" + nbsp + Locale.LS(text) + "</div>" + shortcut + "</div>";
+        String sn="<div style=\"white-space:nowrap\"><i class=\"cirjsicon-" + icon + "\"></i>" + nbsp + Locale.LS(text) + " (" + shortcut + ")</div>";
         return new MenuItem(SafeHtmlUtils.fromTrustedString(sn), cmd);
     }
     
@@ -532,6 +533,8 @@ public class Menus {
     	currentMenuBar=new MenuBar(true);
     	currentMenuBar.setAutoOpen(true);
     	menuBar.addItem(Locale.LS("Circuits"), currentMenuBar);
+        menuBar.addItem(new MenuItem(Locale.LS("Export to LCEDA"), new MyCommand("file","exporttolceda")));
+
     	stack[stackptr++] = currentMenuBar;
     	int p;
     	for (p = 0; p < len; ) {
@@ -591,5 +594,23 @@ public class Menus {
 	sim.unsavedChanges = false;
 	ExportAsLocalFileDialog.setLastFileName(str);
     }
-}
 
+    // Inject CSS fix for popup menu width at runtime
+    private native void injectPopupFix() /*-{
+        var style = $doc.createElement("style");
+        style.textContent = 
+            ".gwt-MenuBarPopup, .gwt-MenuBarPopup > div, .gwt-PopupPanel, .gwt-PopupPanel > div { width: auto !important; overflow: visible !important; }" +
+            ".gwt-MenuBarPopup table, .gwt-PopupPanel table { width: auto !important; table-layout: auto !important; }" +
+            ".gwt-MenuBarPopup td, .gwt-PopupPanel td { white-space: nowrap !important; background: #fff !important; }" +
+            ".gwt-MenuBarPopup .menuPopupTopLeftInner, .gwt-MenuBarPopup .menuPopupTopRightInner, .gwt-MenuBarPopup .menuPopupBottomLeftInner, .gwt-MenuBarPopup .menuPopupBottomRightInner { width: 0 !important; height: 0 !important; }" +
+            ".gwt-MenuBarPopup .menuPopupTopCenter, .gwt-MenuBarPopup .menuPopupBottomCenter { height: 0 !important; }" +
+            ".gwt-MenuBarPopup .menuPopupMiddleLeft, .gwt-MenuBarPopup .menuPopupMiddleRight { width: 0 !important; }" +
+            ".gwt-MenuBarPopup .menuPopupTopLeft, .gwt-MenuBarPopup .menuPopupTopRight, .gwt-MenuBarPopup .menuPopupBottomLeft, .gwt-MenuBarPopup .menuPopupBottomRight { width: 0 !important; height: 0 !important; }" +
+            ".gwt-MenuBar-horizontal .gwt-MenuItem { padding: 5px 10px; cursor: pointer; }" +
+            ".gwt-MenuBar-horizontal .gwt-MenuItem:hover, .gwt-MenuBar-horizontal .gwt-MenuItem-selected { background: #c0d0e8 !important; }" +
+            ".gwt-MenuBar-vertical .gwt-MenuItem { padding: 4px 20px 4px 8px; cursor: pointer; }" +
+            ".gwt-MenuBar-vertical .gwt-MenuItem:hover, .gwt-MenuBar-vertical .gwt-MenuItem-selected { background: #d0e0f0 !important; }";
+        $doc.head.appendChild(style);
+    }-*/;
+
+}
